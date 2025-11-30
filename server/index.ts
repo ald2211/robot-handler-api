@@ -7,6 +7,8 @@ import { config } from "dotenv";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/dbConnection";
 import authRoute from "./routes/auth.route";
+import robotRoute from "./routes/robot.route";
+import logsRoute from "./routes/log.route";
 
 config({ path: path.resolve(__dirname, "../.env") });
 const app = express();
@@ -23,10 +25,9 @@ connectDB();
 
 //routes
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/robot", robotRoute);
+app.use("/api/v1/logs", logsRoute);
 
-
-const _dirname = path.resolve();
-app.use(express.static(path.join(_dirname, "frontEnd", "dist")));
 
 
 // Catch-all route for undefined routes

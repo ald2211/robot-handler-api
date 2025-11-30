@@ -23,3 +23,29 @@ export const authValidationSchema = Joi.object({
       "any.required": "Password is required",
     }),
 });
+
+
+export const createRobotSchema = Joi.object({
+  id: Joi.string().required(),
+  name: Joi.string().required(),
+  type: Joi.string().required(),
+  status: Joi.object({
+    battery: Joi.number().min(0).max(100).required(),
+    location: Joi.string().required(),
+    mode: Joi.string().valid("idle", "active", "charging").required(),
+    error: Joi.string().allow(null, "")
+  }).required()
+});
+
+export const updateRobotStatusSchema = Joi.object({
+  battery: Joi.number().min(0).max(100),
+  location: Joi.string(),
+  mode: Joi.string().valid("idle", "active", "charging"),
+  error: Joi.string().allow(null, "")
+});
+
+
+export const createLogSchema = Joi.object({
+  robotId: Joi.string().required(),
+  message: Joi.string().required()
+});
